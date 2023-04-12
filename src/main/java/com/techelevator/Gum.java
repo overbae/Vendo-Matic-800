@@ -1,4 +1,4 @@
 package com.techelevator;
 
-public class VendWallet {
+public class Gum {
 }
