@@ -49,6 +49,13 @@ public class Inventory {
         }
     }
 }
+
+
+
+
+// old code provided by friend
+
+
 //    Map<String, Item> inventory = new LinkedHashMap<String, Item>();
 //
 //    public void loadInventory() {
