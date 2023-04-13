@@ -6,14 +6,14 @@ import java.math.BigDecimal;
 import java.util.TreeMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.HashMap;
+
 
 public class Inventory {
-
     Map<String, Item> inventory = new TreeMap<>();
+
     public Map<String, Item> inventoryLoader() {
         File listOfInventory = new File("vendingmachine.csv");
-        try (Scanner inventoryInput = new Scanner(listOfInventory)){
+        try (Scanner inventoryInput = new Scanner(listOfInventory)) {
             while (inventoryInput.hasNextLine()) {
                 String inputLine = inventoryInput.nextLine();
                 String[] itemDescription = inputLine.split("\\|");
@@ -33,20 +33,22 @@ public class Inventory {
                     }
                 }
             }
-        } catch(FileNotFoundException e){
-                System.err.println("The file doesn't exist.");
-            }
-            return inventory;
+        } catch (FileNotFoundException e) {
+            System.err.println("The file doesn't exist.");
+        }
+        return inventory;
     }
-        public void itemDisplay(Map<String, Item> inventory){
-            for(Map.Entry<String, Item> item : this.inventory.entrySet()){
-                if(item.getValue().getQuantity() == 0) {
-                    System.out.println(item.getValue().getCode() + " Item is Sold Out");
-                } else {
-                    System.out.println(item.getValue().getCode() + " " + item.getValue().getName() + " " + String.format("%.2f", item.getValue().getPrice()) + ", " + item.getValue().getQuantity() + " left.");
-                }
+
+    public void itemDisplay(Map<String, Item> inventory) {
+        for (Map.Entry<String, Item> item : this.inventory.entrySet()) {
+            if (item.getValue().getQuantity() == 0) {
+                System.out.println(item.getValue().getCode() + " Item is Sold Out");
+            } else {
+                System.out.println(item.getValue().getCode() + " " + item.getValue().getName() + " " + String.format("%.2f", item.getValue().getPrice()) + ", " + item.getValue().getQuantity() + " left.");
             }
         }
+    }
+}
 //    Map<String, Item> inventory = new LinkedHashMap<String, Item>();
 //
 //    public void loadInventory() {
@@ -64,6 +66,6 @@ public class Inventory {
 //            System.out.println("\nFile does not exist");
 //        }
 //    }
-}
+
 // test for commit.
 
