@@ -1,7 +1,7 @@
 package com.techelevator;
 
 import java.math.BigDecimal;
-public abstract class Item {
+public class Item {
     private String name;
     private String code;
     private String category;
@@ -9,10 +9,10 @@ public abstract class Item {
     private int quantity;
     private BigDecimal price;
 
-    public Item(String name, BigDecimal price, String code, String category, int quantity){
+    public Item(String name, BigDecimal price, String category, int quantity){
         this.name = name;
         this.price = price;
-        this.code = code;
+
         this.category = category;
         this.quantity = quantity;
     }
@@ -53,7 +53,7 @@ public abstract class Item {
         this.vendingPhrase = vendingPhrase;
     }
 
-    public abstract void vendingLine();
+
 
 
     //public class Item {
