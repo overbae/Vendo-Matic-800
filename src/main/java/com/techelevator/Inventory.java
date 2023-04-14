@@ -13,6 +13,10 @@ public class Inventory {
     Map<String, Item> inventory = new LinkedHashMap<>();
 
     // Method to load inventory data from a CSV file
+    public void addItem(Item item, String itemDescription){
+        item.setCode(itemDescription);
+        inventory.put(item.getCode(), item);
+    }
     public void inventoryLoader() {
         // Open the inventory file using a try-with-resources block
         try (Scanner inventoryInput = new Scanner(new File("vendingmachine.csv"))) {
@@ -25,20 +29,16 @@ public class Inventory {
                 // Create a new Chip, Candy, Drink, and Gum object based on the item type indicated in the file
                 if (itemDescription[3].equals("Chip")) {
                     item = new Chips(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
-                    item.setCode(itemDescription[0]);
-                    inventory.put(item.getCode(), item);
+                    addItem(item, itemDescription[0]);
                 }else if (itemDescription[3].equals("Candy")) {
                     item = new Candy(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
-                    item.setCode(itemDescription[0]);
-                    inventory.put(item.getCode(), item);
+                    addItem(item, itemDescription[0]);
                 }else if (itemDescription[3].equals("Drink")) {
                     item = new Drink(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
-                    item.setCode(itemDescription[0]);
-                    inventory.put(item.getCode(), item);
+                    addItem(item, itemDescription[0]);
                 }else if (itemDescription[3].equals("Gum")) {
                     item = new Gum(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
-                    item.setCode(itemDescription[0]);
-                    inventory.put(item.getCode(), item);
+                    addItem(item, itemDescription[0]);
                 }
 
             }
@@ -95,4 +95,5 @@ public class Inventory {
 //        }
 //        return sound;
 //    }
+
 }
