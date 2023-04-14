@@ -2,114 +2,73 @@ package com.techelevator;
 
 import java.math.BigDecimal;
 public abstract class Item {
-    private String name;
-    private String code;
-    private String category;
-    private String vendingPhrase;
-    private int quantity;
-    private BigDecimal price;
+    private String name;           // name of the item
+    private String code;           // code to identify the item
+    private String category;       // category of the item
+    private String vendingPhrase;  // phrase that describes how the item is dispensed
+    private int quantity;          // quantity of the item
+    private BigDecimal price;      // price of the item
 
     public Item(String name, BigDecimal price, String category, int quantity){
+        // Constructor for Item class that sets the name, price, category, and quantity
         this.name = name;
         this.price = price;
         this.category = category;
         this.quantity = quantity;
     }
 
-    // these are our getters
     public String getName() {
+        // Method to return the name of the item
         return name;
     }
+
     public BigDecimal getPrice() {
+        // Method to return the price of the item
         return price;
     }
+
     public String getCode(){
+        // Method to return the code of the item
         return code;
     }
+
     public String getCategory(){
+        // Method to return the category of the item
         return category;
     }
+
     public int getQuantity(){
+        // Method to return the quantity of the item
         return quantity;
     }
-    // these are our setters
+
+    // Setter methods to set the values of the private variables
     public void setName(String name){
         this.name = name;
     }
+
     public void setPrice(BigDecimal price){
         this.price = price;
     }
+
     public void setCode(String code){
         this.code = code;
     }
+
     public void setCategory(String category){
         this.category = category;
     }
+
     public void setQuantity(int quantity){
         this.quantity = quantity;
     }
+
     public void setVendingPhrase(String vendingPhrase){
+        // Method to set the vending phrase for the item
         this.vendingPhrase = vendingPhrase;
     }
 
     public abstract String getSound();
-
-
-
-
-    //public class Item {
-//    String code;
-//    String name;
-//    BigDecimal price;
-//    String category;
-//    int quantity;
-//
-//    public Item(){}
-//
-//    public Item(String name, BigDecimal price, String category, int quantity){
-//        this.name = name;
-//        this.price = price;
-//        this.category = category;
-//        this.quantity = quantity;
-//    }
-//
-//    public String getCode() {
-//        return code;
-//    }
-//
-//    public void setCode(String code) {
-//        this.code = code;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public BigDecimal getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(BigDecimal price) {
-//        this.price = price;
-//    }
-//
-//    public String getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(String category) {
-//        this.category = category;
-//    }
-//
-//    public int getQuantity() {
-//        return quantity;
-//    }
-//
-//    public void setQuantity(int quantity) {
-//        this.quantity = quantity;
-//    }
+    // An abstract method that returns the sound made by the item when dispensed. The implementation of this method will be provided by the subclasses.
 }
+
