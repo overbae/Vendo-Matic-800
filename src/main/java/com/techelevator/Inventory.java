@@ -3,76 +3,96 @@ package com.techelevator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.Map;
 import java.util.Scanner;
 
-
 public class Inventory {
-    Map<String, Item> inventory = new TreeMap<>();
 
-    public Map<String, Item> inventoryLoader() {
-        File listOfInventory = new File("vendingmachine.csv");
-        try (Scanner inventoryInput = new Scanner(listOfInventory)) {
+    // Create a new hash map to store the inventory data
+    Map<String, Item> inventory = new LinkedHashMap<>();
+
+    // Method to load inventory data from a CSV file
+    public void inventoryLoader() {
+        // Open the inventory file using a try-with-resources block
+        try (Scanner inventoryInput = new Scanner(new File("vendingmachine.csv"))) {
+            // Loop through each line of the file
             while (inventoryInput.hasNextLine()) {
-                String inputLine = inventoryInput.nextLine();
-                String[] itemDescription = inputLine.split("\\|");
-                for (String item : itemDescription) {
-                    if (itemDescription[3].equals("Chip")) {
-                        Chips chip = new Chips(itemDescription[1], BigDecimal.valueOf(Double.parseDouble(itemDescription[2])), itemDescription[0], itemDescription[3], 5);
-                        inventory.put(itemDescription[0], chip);
-                    } else if (itemDescription[3].equals("Candy")) {
-                        Candy candy = new Candy(itemDescription[1], BigDecimal.valueOf(Double.parseDouble(itemDescription[2])), itemDescription[0], itemDescription[3], 5);
-                        inventory.put(itemDescription[0], candy);
-                    } else if (itemDescription[3].equals("Drink")) {
-                        Drinks drink = new Drinks(itemDescription[1], BigDecimal.valueOf(Double.parseDouble(itemDescription[2])), itemDescription[0], itemDescription[3], 5);
-                        inventory.put(itemDescription[0], drink);
-                    } else if (itemDescription[3].equals("Gum")) {
-                        Gum gum = new Gum(itemDescription[1], BigDecimal.valueOf(Double.parseDouble(itemDescription[2])), itemDescription[0], itemDescription[3], 5);
-                        inventory.put(itemDescription[0], gum);
-                    }
+                // Split the line into individual parts using the pipe character as a delimiter
+                String[] itemDescription = inventoryInput.nextLine().split("\\|");
+                Item item;
+
+                // Create a new Chip, Candy, Drink, and Gum object based on the item type indicated in the file
+                if (itemDescription[3].equals("Chip")) {
+                    item = new Chips(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
+                    item.setCode(itemDescription[0]);
+                    inventory.put(item.getCode(), item);
+                }else if (itemDescription[3].equals("Candy")) {
+                    item = new Candy(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
+                    item.setCode(itemDescription[0]);
+                    inventory.put(item.getCode(), item);
+                }else if (itemDescription[3].equals("Drink")) {
+                    item = new Drink(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
+                    item.setCode(itemDescription[0]);
+                    inventory.put(item.getCode(), item);
+                }else if (itemDescription[3].equals("Gum")) {
+                    item = new Gum(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
+                    item.setCode(itemDescription[0]);
+                    inventory.put(item.getCode(), item);
                 }
+
             }
+
+            // Add the new Item object to the inventory map, using the item code as the key
+
         } catch (FileNotFoundException e) {
             System.err.println("The file doesn't exist.");
         }
-        return inventory;
     }
 
-    public void itemDisplay(Map<String, Item> inventory) {
-        for (Map.Entry<String, Item> item : this.inventory.entrySet()) {
-            if (item.getValue().getQuantity() == 0) {
-                System.out.println(item.getValue().getCode() + " Item is Sold Out");
-            } else {
-                System.out.println(item.getValue().getCode() + " " + item.getValue().getName() + " " + String.format("%.2f", item.getValue().getPrice()) + ", " + item.getValue().getQuantity() + " left.");
+    // Method to display and format the items in the inventory
+    public void itemDisplay() {
+        // Print a header for the inventory display
+        System.out.println("Code\tName\t\t\tPrice\tQuantity");
+        // Print a separator line for the inventory display
+        System.out.println("--------------------------------------------------");
+
+        // Loop through each item in the inventory map
+        for (Map.Entry<String, Item> item : inventory.entrySet()) {
+            // Get the code, name, price, and quantity for the current item
+            String code = item.getValue().getCode();
+            String name = item.getValue().getName();
+            double price = item.getValue().getPrice().doubleValue();
+            int quantity = item.getValue().getQuantity();
+
+            // If the item is out of stock, display a "Sold Out" message
+            if (quantity == 0) {
+                System.out.printf("%s\t%-20s\t%s\t%s\n", code, name, String.format("$%.2f", price), "Sold Out");
+            }
+            // Otherwise, display the item's code, name, price, and quantity left
+            else {
+                System.out.printf("%s\t%-20s\t%s\t%s\n", code, name, String.format("$%.2f", price), quantity);
             }
         }
     }
-}
 
 
 
-
-// old code provided by friend
-
-
-//    Map<String, Item> inventory = new LinkedHashMap<String, Item>();
-//
-//    public void loadInventory() {
-//        String fileName = "/Users/ransom/Desktop/merit-america/module-1-capstone/vendingmachine.csv";
-//        File file = new File(fileName);
-//        try (Scanner inputFile = new Scanner(file)) {
-//            while (inputFile.hasNextLine()) {
-//                String lineOfInput = inputFile.nextLine();
-//                String[] splitInput = lineOfInput.split("\\|");
-//                Item item = new Item(splitInput[1], new BigDecimal(splitInput[2]), splitInput[3], 5); // this splits the csv file values by the Product Name, Price, Category, and it sets the number of said product to 5
-//                item.setCode(splitInput[0]);
-//                inventory.put(item.getCode(), item);
-//            }
-//        } catch (FileNotFoundException e) {
-//            System.out.println("\nFile does not exist");
+    // Method to generate vending sounds
+   public String vendSound(Item item){
+        return item.getSound();
+   }
+//    public String vendSound (String code){
+//        String sound = "";
+//        if (code.startsWith("A")) {
+//            sound = "\nCrunch Crunch, Yum!";
+//        } else if (code.startsWith("B")) {
+//            sound = "\nMunch Munch, Yum!";
+//        } else if (code.startsWith("C")) {
+//            sound = "\nGlug Glug, Yum!";
+//        } else if (code.startsWith("D")) {
+//            sound = "\nChew Chew, Yum!";
 //        }
+//        return sound;
 //    }
-
-// test for commit.
-
+}
