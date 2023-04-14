@@ -20,11 +20,27 @@ public class Inventory {
             while (inventoryInput.hasNextLine()) {
                 // Split the line into individual parts using the pipe character as a delimiter
                 String[] itemDescription = inventoryInput.nextLine().split("\\|");
+                Item item;
 
-                // Create a new Item object based on the item type indicated in the file
-                Item item = new Item(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
-                item.setCode(itemDescription[0]);
-                inventory.put(item.getCode(), item);
+                // Create a new Chip, Candy, Drink, and Gum object based on the item type indicated in the file
+                if (itemDescription[3].equals("Chip")) {
+                    item = new Chips(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
+                    item.setCode(itemDescription[0]);
+                    inventory.put(item.getCode(), item);
+                }else if (itemDescription[3].equals("Candy")) {
+                    item = new Candy(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
+                    item.setCode(itemDescription[0]);
+                    inventory.put(item.getCode(), item);
+                }else if (itemDescription[3].equals("Drink")) {
+                    item = new Drink(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
+                    item.setCode(itemDescription[0]);
+                    inventory.put(item.getCode(), item);
+                }else if (itemDescription[3].equals("Gum")) {
+                    item = new Gum(itemDescription[1], new BigDecimal(itemDescription[2]), itemDescription[3], 5);
+                    item.setCode(itemDescription[0]);
+                    inventory.put(item.getCode(), item);
+                }
+
             }
 
             // Add the new Item object to the inventory map, using the item code as the key
@@ -34,38 +50,49 @@ public class Inventory {
         }
     }
 
-    // Method to display the items in the inventory
+    // Method to display and format the items in the inventory
     public void itemDisplay() {
+        // Print a header for the inventory display
         System.out.println("Code\tName\t\t\tPrice\tQuantity");
+        // Print a separator line for the inventory display
         System.out.println("--------------------------------------------------");
 
+        // Loop through each item in the inventory map
         for (Map.Entry<String, Item> item : inventory.entrySet()) {
+            // Get the code, name, price, and quantity for the current item
             String code = item.getValue().getCode();
             String name = item.getValue().getName();
             double price = item.getValue().getPrice().doubleValue();
             int quantity = item.getValue().getQuantity();
 
+            // If the item is out of stock, display a "Sold Out" message
             if (quantity == 0) {
                 System.out.printf("%s\t%-20s\t%s\t%s\n", code, name, String.format("$%.2f", price), "Sold Out");
-            } else {
+            }
+            // Otherwise, display the item's code, name, price, and quantity left
+            else {
                 System.out.printf("%s\t%-20s\t%s\t%s\n", code, name, String.format("$%.2f", price), quantity);
             }
         }
     }
 
 
+
     // Method to generate vending sounds
-    public String vendSound (String code){
-        String sound = "";
-        if (code.startsWith("A")) {
-            sound = "\nCrunch Crunch, Yum!";
-        } else if (code.startsWith("B")) {
-            sound = "\nMunch Munch, Yum!";
-        } else if (code.startsWith("C")) {
-            sound = "\nGlug Glug, Yum!";
-        } else if (code.startsWith("D")) {
-            sound = "\nChew Chew, Yum!";
-        }
-        return sound;
-    }
+   public String vendSound(Item item){
+        return item.getSound();
+   }
+//    public String vendSound (String code){
+//        String sound = "";
+//        if (code.startsWith("A")) {
+//            sound = "\nCrunch Crunch, Yum!";
+//        } else if (code.startsWith("B")) {
+//            sound = "\nMunch Munch, Yum!";
+//        } else if (code.startsWith("C")) {
+//            sound = "\nGlug Glug, Yum!";
+//        } else if (code.startsWith("D")) {
+//            sound = "\nChew Chew, Yum!";
+//        }
+//        return sound;
+//    }
 }
