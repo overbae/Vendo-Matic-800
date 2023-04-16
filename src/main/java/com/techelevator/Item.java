@@ -1,7 +1,9 @@
 package com.techelevator;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 public abstract class Item {
+    public static DecimalFormat df = new DecimalFormat("$0.00"); // A DecimalFormat object to format the price of an item as currency
     private String name;           // name of the item
     private String code;           // code to identify the item
     private String category;       // category of the item
@@ -71,4 +73,3 @@ public abstract class Item {
     public abstract String getSound();
     // An abstract method that returns the sound made by the item when dispensed. The implementation of this method will be provided by the subclasses.
 }
-

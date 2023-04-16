@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Inventory {
 
     // Create a new hash map to store the inventory data
-    Map<String, Item> inventory = new LinkedHashMap<>();
+    public Map<String, Item> inventory = new LinkedHashMap<>();
 
     // Method to load inventory data from a CSV file
     public void addItem(Item item, String itemDescription){
