@@ -49,7 +49,7 @@ import org.junit.Test;
 
         @Test
         public void chips_makes_correct_sound() {
-            String expectedSound = "Crunch Crunch Yum!";
+            String expectedSound = "Crunch Crunch Yum! \n";
             String actualSound = chips.getSound();
             Assert.assertEquals(expectedSound, actualSound);
         }

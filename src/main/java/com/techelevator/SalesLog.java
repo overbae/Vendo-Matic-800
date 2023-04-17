@@ -3,20 +3,21 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 public class SalesLog {
     // This method returns the current date and time as a formatted string
     private static String getCurrentTime(){
-        SimpleDateFormat date = new SimpleDateFormat("MM/DD/yyyy HH:mm:ss");
+        SimpleDateFormat date = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date now = new Date();
         return date.format(now);
     }
 
     // This method logs a sales event with the starting balance, ending balance, and event name
-    public static void log(String logEvent, double startingBalance, double endingBalance){
+    public static void log(String logEvent, BigDecimal startingBalance, BigDecimal endingBalance){
         // Create a new file object for the log file
-        File file = new File("log.txt");
+        File file = new File("src/main/java/com/techelevator/Log.txt");
         try(
                 // Open a PrintWriter with FileWriter to append to the log file
                 PrintWriter writer = new PrintWriter(new FileWriter(file, true))){
@@ -28,4 +29,5 @@ public class SalesLog {
         }
     }
 }
+
 

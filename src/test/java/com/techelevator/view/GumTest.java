@@ -47,7 +47,7 @@ public class GumTest {
 
     @Test
     public void gum_makes_correct_sound() {
-        String expectedSound = "Chew Chew Yum!";
+        String expectedSound = "Chew Chew Yum! \n";
         String actualSound = gum.getSound();
         Assert.assertEquals(expectedSound, actualSound);
     }

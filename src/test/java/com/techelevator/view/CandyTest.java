@@ -45,7 +45,7 @@ public class CandyTest {
 
     @Test
     public void candy_makes_correct_sound() {
-        String expectedSound = "Munch Munch Yum!";
+        String expectedSound = "Munch Munch Yum! \n";
         String actualSound = candy.getSound();
         Assert.assertEquals(expectedSound, actualSound);
     }

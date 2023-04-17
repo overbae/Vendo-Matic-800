@@ -12,7 +12,7 @@ public class Chips extends Item {
     @Override
     public String getSound() {
         // Overrides the abstract method from the Item class to return the sound made by the Candy
-        return "Crunch Crunch Yum!";
+        return "Crunch Crunch Yum! \n";
     }
 }
 

@@ -12,7 +12,7 @@ public class Drink extends Item{
     @Override
     public String getSound() {
         // Overrides the abstract method from the Item class to return the sound made by the Candy
-        return "Glug Glug Yum!";
+        return "Glug Glug Yum! \n";
     }
 }
 

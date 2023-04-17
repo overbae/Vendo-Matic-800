@@ -47,7 +47,7 @@ public class DrinkTest {
 
         @Test
         public void drink_makes_correct_sound() {
-            String expectedSound = "Glug Glug Yum!";
+            String expectedSound = "Glug Glug Yum! \n";
             String actualSound = drink.getSound();
             Assert.assertEquals(expectedSound, actualSound);
         }
